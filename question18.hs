@@ -58,3 +58,18 @@ tri =
      [63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
      [04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23]
     ]
+
+getVal :: (Int , Int) -> Int
+getVal (x, y) = tri !! x !! y
+
+children :: (Int , Int) -> ((Int,Int),(Int,Int))
+children (x, y) = ((x+1,y), (x+1,y+1))
+
+subtreeMax :: (Int, Int) -> Int
+subtreeMax (14, y) = getVal (14,y)
+subtreeMax p = let (l,r) = children p
+          in
+            getVal p + max (subtreeMax l) (subtreeMax r)
+                      
+theAnswer :: Int
+theAnswer = subtreeMax (0, 0)
